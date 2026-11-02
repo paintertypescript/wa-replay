@@ -14,7 +14,7 @@ Requires Node.js 20.9 or newer and npm. Dependencies are installed in this check
    npm run dev
    ```
 
-4. Open **http://127.0.0.1:3000**. Choose an export from the library. Use **Refresh library** after adding, replacing, or removing ZIPs.
+4. Open **http://127.0.0.1:3001**. Choose an export from the library. Use **Refresh library** after adding, replacing, or removing ZIPs.
 
 ## Browsing
 
@@ -44,7 +44,9 @@ Open this folder in VS Code, open **Run and Debug**, select a configuration from
 - **wa-replay: server** starts the development server in a debug terminal.
 - **wa-replay: browser (running server)** launches Edge against an already-running development server.
 
-The full-stack configuration follows the [Next.js debugging guide](https://nextjs.org/docs/app/guides/debugging). On Linux/WSL, Node must be available in the VS Code environment and Edge must be accessible to the browser debugger. Opening the folder in Windows VS Code uses the Windows Node installation. To use Chrome for full-stack debugging, change `debugWithEdge` to `debugWithChrome`.
+Each browser launch resets the ignored `.vscode/.edge-debug-profile/` directory, then opens a fresh Edge window with TCP remote debugging. Stopping debugging closes the entire debug browser. Your normal Edge profile is untouched. If an interrupted session leaves its debug window open, close that window before starting again. The full-stack configuration uses port 3001 explicitly, so stop any existing server on that port before pressing F5.
+
+The full-stack configuration uses [VS Code's named browser launch configuration](https://code.visualstudio.com/docs/debugtest/debugging-configuration#triggering-an-arbitrary-launch-config). On Linux/WSL, Node must be available in the VS Code environment and Edge must be accessible to the browser debugger. Opening the folder in Windows VS Code uses the Windows Node installation. The Windows configuration explicitly selects the installed Microsoft Edge executable.
 
 ## Commands and verification
 
@@ -63,4 +65,4 @@ npx playwright install chromium
 npm run test:e2e
 ```
 
-The tests create a synthetic `data/__wa-replay-test__.zip` and remove it afterward. They do not commit or inspect personal conversations. Stop an existing server on port 3000 before testing if it belongs to another project.
+The tests create a synthetic `data/__wa-replay-test__.zip` and remove it afterward. They do not commit or inspect personal conversations. Stop an existing server on port 3001 before testing if it belongs to another project.

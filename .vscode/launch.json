@@ -6,17 +6,16 @@
       "type": "node",
       "request": "launch",
       "program": "${workspaceFolder}/node_modules/next/dist/bin/next",
-      "args": ["dev", "--hostname", "127.0.0.1"],
+      "args": ["dev", "--hostname", "127.0.0.1", "--port", "3001"],
       "cwd": "${workspaceFolder}",
       "runtimeArgs": ["--inspect"],
       "skipFiles": ["<node_internals>/**"],
       "console": "integratedTerminal",
+      "cascadeTerminateToConfigurations": ["wa-replay: browser (running server)"],
       "serverReadyAction": {
         "pattern": "- Local:.+(https?://\\S+)",
-        "uriFormat": "%s",
-        "action": "debugWithEdge",
-        "webRoot": "${workspaceFolder}",
-        "killOnServerStop": true
+        "action": "startDebugging",
+        "name": "wa-replay: browser (running server)"
       }
     },
     {
@@ -30,8 +29,16 @@
       "name": "wa-replay: browser (running server)",
       "type": "msedge",
       "request": "launch",
-      "url": "http://127.0.0.1:3000",
-      "webRoot": "${workspaceFolder}"
+      "url": "http://127.0.0.1:3001",
+      "webRoot": "${workspaceFolder}",
+      "preLaunchTask": "wa-replay: reset debug browser profile",
+      "userDataDir": "${workspaceFolder}/.vscode/.edge-debug-profile",
+      "runtimeArgs": ["--remote-debugging-port=0", "--new-window", "--no-first-run", "--no-default-browser-check"],
+      "cleanUp": "wholeBrowser",
+      "timeout": 30000,
+      "windows": {
+        "runtimeExecutable": "${env:ProgramFiles(x86)}/Microsoft/Edge/Application/msedge.exe"
+      }
     }
   ]
 }

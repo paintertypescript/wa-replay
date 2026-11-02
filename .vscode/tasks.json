@@ -1,0 +1,14 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "wa-replay: reset debug browser profile",
+      "type": "process",
+      "command": "node",
+      "args": ["${workspaceFolder}/scripts/reset-debug-browser.cjs"],
+      "options": { "cwd": "${workspaceFolder}" },
+      "problemMatcher": [],
+      "presentation": { "reveal": "silent", "panel": "dedicated" }
+    }
+  ]
+}
