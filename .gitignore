@@ -34,3 +34,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Private WhatsApp exports and local test artifacts
+/data/
+*.zip
+/playwright-report/
+/test-results/

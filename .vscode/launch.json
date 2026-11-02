@@ -1,0 +1,37 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "wa-replay: full stack (Edge)",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/node_modules/next/dist/bin/next",
+      "args": ["dev", "--hostname", "127.0.0.1"],
+      "cwd": "${workspaceFolder}",
+      "runtimeArgs": ["--inspect"],
+      "skipFiles": ["<node_internals>/**"],
+      "console": "integratedTerminal",
+      "serverReadyAction": {
+        "pattern": "- Local:.+(https?://\\S+)",
+        "uriFormat": "%s",
+        "action": "debugWithEdge",
+        "webRoot": "${workspaceFolder}",
+        "killOnServerStop": true
+      }
+    },
+    {
+      "name": "wa-replay: server",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "npm run dev -- --inspect",
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "name": "wa-replay: browser (running server)",
+      "type": "msedge",
+      "request": "launch",
+      "url": "http://127.0.0.1:3000",
+      "webRoot": "${workspaceFolder}"
+    }
+  ]
+}
